@@ -46,7 +46,6 @@ export default function MenuManagement() {
   })
 
   useEffect(() => {
-    console.log(detail)
     setValue('menu', detail?.menu ?? [])
     setValue('label', detail?.label || '')
   }, [detail, setValue])

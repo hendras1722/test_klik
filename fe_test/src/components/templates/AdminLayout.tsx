@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '../organism/Navbar'
 import ListMenuSidebar from '../organism/ListMenuSidebar'
+import { useApi } from '@/composables/useApi'
 
 const AdminLayout = ({ children }: { readonly children: React.ReactNode }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -73,7 +74,29 @@ const AdminLayout = ({ children }: { readonly children: React.ReactNode }) => {
     }
   }, [handleResize, stopResize])
 
-  function handleLogout() {
+  const api = useApi
+
+  async function handleLogout() {
+    await api<{ message: string }>(
+      'https://auth.syahendra.com/v1/auth/logout',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      },
+      {
+        onError: () => {
+          // Optionally handle error, e.g. show a notification
+        },
+        onSuccess: () => {
+          localStorage.removeItem('token')
+          document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+          router.push('/login')
+        },
+      }
+    )
     localStorage.removeItem('token')
     router.push('/login')
   }

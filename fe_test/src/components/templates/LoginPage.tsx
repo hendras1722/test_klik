@@ -63,11 +63,14 @@ export default function LoginPage() {
         },
         onSuccess: (e) => {
           localStorage.setItem('token', e.data.token)
-          router.push('/')
+          document.cookie = `token=${e.data.token}`
           toaster.success({
             title: 'Success',
             description: 'Login success',
           })
+          setTimeout(() => {
+            router.push('/')
+          }, 1000)
         },
       }
     )

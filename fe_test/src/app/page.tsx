@@ -11,6 +11,7 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 import { FiMenu, FiLayers } from 'react-icons/fi'
 
 const menuItems = [
@@ -34,9 +35,20 @@ const menuItems = [
 
 export default function RootPage() {
   const router = useRouter()
+  const [menuGroup, setMenuGroup] = React.useState([])
+  const [menuManagement, setMenuManagement] = React.useState([])
 
-  const menuGroupData = JSON.parse(localStorage.getItem('menu_group') ?? '[]')
-  const menuManagement = JSON.parse(localStorage.getItem('menu') ?? '[]')
+  useEffect(() => {
+    const menuGroupData =
+      (localStorage &&
+        JSON.parse(localStorage.getItem('menu_group') ?? '[]')) ||
+      []
+    const menuManagementData =
+      (localStorage && JSON.parse(localStorage.getItem('menu') ?? '[]')) || []
+
+    setMenuGroup(menuGroupData)
+    setMenuManagement(menuManagementData)
+  }, [])
 
   const handleNavigate = (path: string) => {
     router.push(path)
@@ -114,7 +126,7 @@ export default function RootPage() {
             <Card.Root borderWidth="1px" borderColor="gray.200">
               <CardBody textAlign="center">
                 <Text fontSize="2xl" fontWeight="bold" color="blue.500">
-                  {menuGroupData.length}
+                  {menuGroup.length}
                 </Text>
                 <Text fontSize="sm" color="gray.600">
                   Total Menu Management
