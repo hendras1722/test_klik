@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, CloseButton, Dialog, Portal } from '@chakra-ui/react'
+import { CloseButton, Dialog, Portal } from '@chakra-ui/react'
 import React from 'react'
 
 const BaseModal = ({

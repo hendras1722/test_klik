@@ -80,10 +80,17 @@ export default function MenuManagement() {
       })
       return
     }
-    console.log(data, 'inidatra')
+
     if (isEdit) {
-      getItem.map((item: { menu: string }) => {
-        if (item.menu === detail?.menu) {
+      getItem.map((item: { menu: string[] }) => {
+        if (
+          Array.isArray(detail?.menu) &&
+          Array.isArray(item.menu) &&
+          item.menu.length === detail.menu.length &&
+          item.menu.every(
+            (val: string, idx: number) => val === detail.menu[idx]
+          )
+        ) {
           item.menu = data.menu
         }
       })
