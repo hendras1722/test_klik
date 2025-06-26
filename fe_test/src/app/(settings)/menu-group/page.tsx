@@ -100,7 +100,7 @@ export default function MenuManagement() {
         <Toaster />
         <Flex justify="space-between">
           <Text fontSize="2xl" color={'black'} fontWeight="bold">
-            Menu Management
+            Menu Group Management
           </Text>
           <Button
             bg={'green.500'}
