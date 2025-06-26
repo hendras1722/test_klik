@@ -4,7 +4,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')
   const { pathname } = new URL(request.url)
 
-  const isLoginPage = pathname === '/login'
+  const isLoginPage = pathname === '/login' || pathname === '/register'
 
   if (!token) {
     console.log(request.url)
